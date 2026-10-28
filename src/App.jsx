@@ -2,6 +2,21 @@ const phoneNumbers = ['918423438308', '918808444108'];
 const whatsappNumber = '918808444108';
 const officeAddress = 'Shan Manzil, Mahipat Mau, Lucknow';
 const logoUrl = `${import.meta.env.BASE_URL}au-travel-mark.svg`;
+const galleryImages = Object.entries(
+  import.meta.glob('./assets/gallery/*.{avif,gif,jpeg,jpg,png,webp}', {
+    eager: true,
+    import: 'default',
+    query: '?url',
+  }),
+).map(([path, src]) => {
+  const filename = path.split('/').pop() ?? 'Travel photo';
+  const title = filename
+    .replace(/\.[^.]+$/, '')
+    .replace(/[-_]+/g, ' ')
+    .replace(/\b\w/g, (letter) => letter.toUpperCase());
+
+  return { path, src };
+});
 
 const services = [
   { icon: '✈', title: 'Flight booking', text: 'Compare options and book domestic or international flights.' },
@@ -62,6 +77,7 @@ function App() {
           <a href="#home">Home</a>
           <a href="#services">Services</a>
           <a href="#packages">Packages</a>
+          <a href="#gallery">Gallery</a>
           <a href="#contact">Contact</a>
         </nav>
         <a className="header-cta" href={whatsappLink('Hello AU Tours & Travels, I would like to plan a trip.')}>
@@ -153,6 +169,32 @@ function App() {
             </div>
             <p className="price-note">Package prices shown are sample placeholders. Final rates depend on your dates, group size, and inclusions.</p>
           </div>
+        </section>
+
+        <section className="gallery-section section-wrap" id="gallery">
+          <div className="section-heading">
+            <div>
+              <p className="eyebrow">MOMENTS FROM THE JOURNEY</p>
+              <h2>Our travel gallery</h2>
+            </div>
+            <p>Add your travel photos to the gallery folder and they’ll appear here automatically.</p>
+          </div>
+          {galleryImages.length > 0 ? (
+            <div className="gallery-grid">
+              {galleryImages.map((image) => (
+                <figure className="gallery-item" key={image.path}>
+                  <img src={image.src} alt={image.title} loading="lazy" />
+                  <figcaption>{image.title}</figcaption>
+                </figure>
+              ))}
+            </div>
+          ) : (
+            <div className="gallery-empty">
+              <span aria-hidden="true">▧</span>
+              <p>Your travel photos will appear here.</p>
+              <small>Add JPG, PNG, WEBP, AVIF, or GIF files to <code>src/assets/gallery/</code>.</small>
+            </div>
+          )}
         </section>
 
         <section className="contact-banner section-wrap" id="contact">
