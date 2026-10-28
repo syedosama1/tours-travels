@@ -1,4 +1,6 @@
 const phoneNumbers = ['918423438308', '918808444108'];
+const whatsappNumber = '918808444108';
+const officeAddress = 'Shan Manzil, Mahipat Mau, Lucknow';
 const logoUrl = `${import.meta.env.BASE_URL}au-travel-mark.svg`;
 
 const services = [
@@ -40,8 +42,8 @@ const packages = [
   },
 ];
 
-function whatsappLink(number, message) {
-  return `https://wa.me/${number}?text=${encodeURIComponent(message)}`;
+function whatsappLink(message) {
+  return `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
 }
 
 function formatPhone(number) {
@@ -62,7 +64,7 @@ function App() {
           <a href="#packages">Packages</a>
           <a href="#contact">Contact</a>
         </nav>
-        <a className="header-cta" href={whatsappLink(phoneNumbers[0], 'Hello AU Tours & Travels, I would like to plan a trip.')}>
+        <a className="header-cta" href={whatsappLink('Hello AU Tours & Travels, I would like to plan a trip.')}>
           <span aria-hidden="true">☏</span> Talk to an expert
         </a>
       </header>
@@ -78,7 +80,7 @@ function App() {
             </p>
             <div className="hero-actions">
               <a className="button button-primary" href="#packages">Explore packages <span aria-hidden="true">→</span></a>
-              <a className="button button-outline" href={whatsappLink(phoneNumbers[0], 'Hello, I would like help planning a trip.')}>
+              <a className="button button-outline" href={whatsappLink('Hello, I would like help planning a trip.')}>
                 <span aria-hidden="true">◉</span> Chat on WhatsApp
               </a>
             </div>
@@ -115,7 +117,7 @@ function App() {
                 <span className="service-icon" aria-hidden="true">{service.icon}</span>
                 <h3>{service.title}</h3>
                 <p>{service.text}</p>
-                <a href={whatsappLink(phoneNumbers[0], `Hello, I need help with ${service.title.toLowerCase()}.`)} aria-label={`Ask us about ${service.title}`}>Ask us <span aria-hidden="true">↗</span></a>
+                <a href={whatsappLink(`Hello, I need help with ${service.title.toLowerCase()}.`)} aria-label={`Ask us about ${service.title}`}>Ask us <span aria-hidden="true">↗</span></a>
               </article>
             ))}
           </div>
@@ -142,7 +144,7 @@ function App() {
                     <p className="package-place">{item.place}</p>
                     <h3>{item.name}</h3>
                     <div className="package-meta"><span>◷ &nbsp;{item.duration}</span><strong>{item.price}</strong></div>
-                    <a className="package-link" href={whatsappLink(phoneNumbers[0], `Hello, please share details about the ${item.name} package.`)}>
+                    <a className="package-link" href={whatsappLink(`Hello, please share details about the ${item.name} package.`)}>
                       Enquire on WhatsApp <span aria-hidden="true">→</span>
                     </a>
                   </div>
@@ -160,11 +162,9 @@ function App() {
             <p>Share your plans with us and we’ll help you find the right way there.</p>
           </div>
           <div className="contact-actions">
-            {phoneNumbers.map((number) => (
-              <a className="button button-light" href={whatsappLink(number, 'Hello AU Tours & Travels, I would like to discuss a trip.')} key={number}>
-                <span aria-hidden="true">◉</span> WhatsApp {formatPhone(number)}
-              </a>
-            ))}
+            <a className="button button-light" href={whatsappLink('Hello AU Tours & Travels, I would like to discuss a trip.')}>
+              <span aria-hidden="true">◉</span> WhatsApp {formatPhone(whatsappNumber)}
+            </a>
           </div>
         </section>
       </main>
@@ -191,16 +191,14 @@ function App() {
             {phoneNumbers.map((number) => (
               <a href={`tel:+${number}`} key={number}>{formatPhone(number)}</a>
             ))}
-            <p>1st Floor Shahnaz Mahalipat Mau,<br />Lucknow</p>
+            <p>{officeAddress}</p>
           </div>
           <div className="footer-column footer-whatsapp">
             <h3>Quick chat</h3>
-            <p>Choose either number to message our team on WhatsApp.</p>
-            {phoneNumbers.map((number) => (
-              <a className="whatsapp-link" href={whatsappLink(number, 'Hello AU Tours & Travels!')} key={number}>
-                ◉ &nbsp; {formatPhone(number)}
-              </a>
-            ))}
+            <p>Message our team on WhatsApp.</p>
+            <a className="whatsapp-link" href={whatsappLink('Hello AU Tours & Travels!')}>
+              ◉ &nbsp; {formatPhone(whatsappNumber)}
+            </a>
           </div>
         </div>
         <div className="footer-bottom">
